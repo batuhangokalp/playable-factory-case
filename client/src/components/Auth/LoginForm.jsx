@@ -1,6 +1,9 @@
 import { Button, Checkbox, Form, Input, message, Spin } from "antd";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 const LoginForm = () => {
   const [form] = Form.useForm();
@@ -9,19 +12,26 @@ const LoginForm = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const storedUser = JSON.parse(localStorage.getItem("storedUser"));
+      const response = await axios.post(`${API_URL}/api/auth/login`, {
+        email: values.email,
+        password: values.password,
+      });
 
-      if (storedUser && storedUser.email === values.email && storedUser.password === values.password) {
+      if (response.status === 200) {
+        console.log(response.data)
+        const { user } = response.data;
         message.success("Giriş başarılı");
         form.resetFields();
 
+        localStorage.setItem("storedUser", JSON.stringify(user));
+
         window.location = "/";
-      } else {
-        message.error("Kullanıcı Bilgileri Yanlış");
       }
     } catch (error) {
       console.error(error);
-      message.error("Bir hata oluştu, lütfen tekrar deneyin.");
+      if (error.response?.status === 401) {
+        message.error("Kullanıcı Bilgileri Yanlış");
+      }
     } finally {
       setLoading(false);
     }

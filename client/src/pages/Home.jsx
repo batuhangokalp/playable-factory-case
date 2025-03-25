@@ -1,11 +1,13 @@
-import React from 'react'
+import ToDoList from "../components/Task/ToDoList";
+import Header from "../components/Header";
 
 const Home = () => {
   return (
-    <div>
-      fdfsdfdsfds
-    </div>
-  )
-}
+    <>
+      <Header />
+      <ToDoList />
+    </>
+  );
+};
 
-export default Home
+export default Home;

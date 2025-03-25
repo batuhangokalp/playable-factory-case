@@ -1,28 +1,31 @@
 import { Button, Form, Input, message, Spin } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 const RegisterForm = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const user = {
+      const response = await axios.post(`${API_URL}/api/auth/register`, {
         username: values.username,
         email: values.email,
         password: values.password,
-      };
-
-      localStorage.setItem("storedUser", JSON.stringify(user));
-
-      message.success("Kayıt başarıyla oluşturuldu");
-      form.resetFields();
-      navigate("/login");
+      });
+      const user = response.data;
+      if (response.status === 201) {
+        message.success("Kayıt başarıyla oluşturuldu");
+        form.resetFields();
+        localStorage.setItem("storedUser", JSON.stringify(user));
+        window.location = "/";
+      }
     } catch (error) {
       console.log(error);
-      message.error("Bir hata oluştu, lütfen tekrar deneyin.");
     } finally {
       setLoading(false);
     }
