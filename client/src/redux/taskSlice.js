@@ -3,21 +3,35 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
+const getToken = () => {
+  return localStorage.getItem("storedToken");
+};
+
 const doneTasksFromLocalStorage = () => {
   const storedDoneTasks = localStorage.getItem("storedDoneTasks");
   return storedDoneTasks ? JSON.parse(storedDoneTasks) : [];
 };
 
 export const fetchTaskAsync = createAsyncThunk("task/fetchTask", async () => {
-  const response = await axios.get(`${API_URL}/api/task`);
+  const token = getToken();
+  const response = await axios.get(`${API_URL}/api/task`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 });
 
 export const createTaskAsync = createAsyncThunk(
   "task/createTask",
   async (body) => {
+    const token = getToken();
     try {
-      const res = await axios.post(`${API_URL}/api/task`, body);
+      const res = await axios.post(`${API_URL}/api/task`, body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return res.data;
     } catch (error) {
       console.error("Error during axios.post:", error);
@@ -29,8 +43,13 @@ export const createTaskAsync = createAsyncThunk(
 export const deleteTaskAsync = createAsyncThunk(
   "task/deleteTask",
   async (taskId) => {
+    const token = getToken();
     try {
-      await axios.delete(`${API_URL}/api/task/${taskId}`);
+      await axios.delete(`${API_URL}/api/task/${taskId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return taskId;
     } catch (error) {
       console.error("Error during axios.delete:", error);
@@ -42,8 +61,13 @@ export const deleteTaskAsync = createAsyncThunk(
 export const updateTaskAsync = createAsyncThunk(
   "task/updateTask",
   async ({ taskId, body }) => {
+    const token = getToken();
     try {
-      const res = await axios.put(`${API_URL}/api/task/${taskId}`, body);
+      const res = await axios.put(`${API_URL}/api/task/${taskId}`, body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return res.data;
     } catch (error) {
       console.error("Error during axios.post:", error);

@@ -7,13 +7,14 @@ const {
   updateModel,
   deleteModel,
 } = require("../helpers/commonControllers.js");
+const authMiddleware = require("../middlewares/authMiddleware.js");
 
-router.post("/", createModel(Task));
+router.post("/", authMiddleware, createModel(Task));
 
-router.get("/", getModel(Task));
+router.get("/", authMiddleware, getModel(Task));
 
-router.put("/:id", updateModel(Task));
+router.put("/:id", authMiddleware, updateModel(Task));
 
-router.delete("/:id", deleteModel(Task));
+router.delete("/:id", authMiddleware, deleteModel(Task));
 
 module.exports = router;

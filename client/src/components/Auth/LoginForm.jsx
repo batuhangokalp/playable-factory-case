@@ -18,14 +18,13 @@ const LoginForm = () => {
       });
 
       if (response.status === 200) {
-        console.log(response.data)
-        const { user } = response.data;
+        const { user, token } = response.data;
         message.success("Giriş başarılı");
         form.resetFields();
 
         localStorage.setItem("storedUser", JSON.stringify(user));
-
-        window.location = "/";
+        localStorage.setItem("storedToken", token);
+        // window.location = "/";
       }
     } catch (error) {
       console.error(error);

@@ -14,11 +14,15 @@ const Header = () => {
   const taskItems = useSelector((state) => state.task.items);
   const doneTasks = useSelector((state) => state.task.doneTasks);
 
-  const handleExit = () => {
+  const handleLogOut = () => {
     localStorage.removeItem("storedUser");
+    localStorage.removeItem("storedToken");
+
     navigate("/");
+
     window.location.reload();
   };
+
   return (
     <div className="border-b mb-6">
       <header className="py-4 px-6 flex justify-between items-center gap-10">
@@ -72,7 +76,7 @@ const Header = () => {
             description="Are you sure you want to logout?"
             okText="Yes"
             cancelText="No"
-            onConfirm={handleExit}
+            onConfirm={handleLogOut}
           >
             <div className="header-link cursor-pointer">
               <LogoutOutlined className="header-link-icon" />
