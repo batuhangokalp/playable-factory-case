@@ -3,6 +3,11 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
+const doneTasksFromLocalStorage = () => {
+  const storedDoneTasks = localStorage.getItem("storedDoneTasks");
+  return storedDoneTasks ? JSON.parse(storedDoneTasks) : [];
+};
+
 export const fetchTaskAsync = createAsyncThunk("task/fetchTask", async () => {
   const response = await axios.get(`${API_URL}/api/task`);
   return response.data;
@@ -51,8 +56,30 @@ export const taskSlice = createSlice({
   name: "task",
   initialState: {
     items: [],
+    doneTasks: doneTasksFromLocalStorage(),
     status: "idle",
     error: null,
+  },
+  reducers: {
+    markTaskAsDone: (state, action) => {
+      const taskIndex = state.items.findIndex(
+        (task) => task._id === action.payload
+      );
+      if (taskIndex !== -1) {
+        const doneTask = state.items[taskIndex];
+        state.doneTasks.push(doneTask);
+        state.items.splice(taskIndex, 1);
+
+        localStorage.setItem(
+          "storedDoneTasks",
+          JSON.stringify(state.doneTasks)
+        );
+      }
+    },
+    clearDoneTasks: (state) => {
+      state.doneTasks = [];
+      localStorage.removeItem("doneTasks");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -105,4 +132,5 @@ export const taskSlice = createSlice({
   },
 });
 
+export const { markTaskAsDone, clearDoneTasks } = taskSlice.actions;
 export default taskSlice.reducer;

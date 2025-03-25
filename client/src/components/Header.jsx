@@ -1,12 +1,18 @@
 import { Badge, Popconfirm } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { HomeOutlined, CopyOutlined, LogoutOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  LogoutOutlined,
+  FileDoneOutlined,
+  FileOutlined,
+} from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
 const Header = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const taskItems = useSelector((state) => state.task.items);
+  const doneTasks = useSelector((state) => state.task.doneTasks);
 
   const handleExit = () => {
     localStorage.removeItem("storedUser");
@@ -45,8 +51,19 @@ const Header = () => {
                 pathname === "/tasks" && "active-header-link"
               }`}
             >
-              <CopyOutlined className="header-link-icon" />
+              <FileOutlined className="header-link-icon" />
               <span className="header-link-span">Tasks</span>
+            </Link>
+          </Badge>
+          <Badge count={doneTasks?.length} className="md:flex hidden">
+            <Link
+              to={"/done"}
+              className={`header-link ${
+                pathname === "/done" && "active-header-link"
+              }`}
+            >
+              <FileDoneOutlined className="header-link-icon" />
+              <span className="header-link-span">Done</span>
             </Link>
           </Badge>
 
@@ -65,7 +82,7 @@ const Header = () => {
         </div>
         <Badge count={taskItems?.length} className="md:hidden flex">
           <Link to={"/tasks"} className="header-link">
-            <CopyOutlined className="text-2xl mb-2" />
+            <FileOutlined className="text-2xl mb-2" />
             <span className="header-link-span">Tasks</span>
           </Link>
         </Badge>

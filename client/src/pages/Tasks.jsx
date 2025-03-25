@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteTaskAsync,
   fetchTaskAsync,
+  markTaskAsDone,
   updateTaskAsync,
 } from "../redux/taskSlice";
 import Header from "../components/Header";
@@ -47,6 +48,10 @@ const Tasks = () => {
       });
   };
 
+  const handleDoneClick = (taskId) => {
+    dispatch(markTaskAsDone(taskId));
+    dispatch(deleteTaskAsync(taskId));
+  };
   const columns = [
     {
       title: "Image",
@@ -74,6 +79,13 @@ const Tasks = () => {
       key: "actions",
       render: (_, record) => (
         <Space>
+          <Button
+            type="primary"
+            style={{ backgroundColor: "green", borderColor: "green" }}
+            onClick={() => handleDoneClick(record._id)}
+          >
+            Done
+          </Button>
           <Button type="primary" onClick={() => handleUpdateClick(record)}>
             Update
           </Button>
@@ -96,7 +108,7 @@ const Tasks = () => {
   return (
     <>
       <Header />
-      <div className="px-6 overflow-y-auto border-b">
+      <div className="px-24 overflow-y-auto">
         <Table
           rowKey={(record) => record._id}
           dataSource={taskItems}

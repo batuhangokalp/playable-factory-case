@@ -5,6 +5,7 @@ const Home = lazy(() => import("./pages/Home"));
 const Register = lazy(() => import("./pages/Auth/Register"));
 const Login = lazy(() => import("./pages/Auth/Login"));
 const Tasks = lazy(() => import("./pages/Tasks"));
+const Done = lazy(() => import("./pages/Done"));
 
 function App() {
   const storedUser = JSON.parse(localStorage.getItem("storedUser"));
@@ -23,6 +24,7 @@ function App() {
             <>
               <Route path="/" element={<Home />} />
               <Route path="/tasks" element={<Tasks />} />
+              <Route path="/done" element={<Done />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
