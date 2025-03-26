@@ -32,10 +32,6 @@ Bu proje, **React, Redux Toolkit, Express.js, MongoDB, JWT, Tailwind CSS, Ant De
 
 Projeyi klonladıktan sonra;
 
-Gerekli bağımlılıkları yükleyin:
+Dockerla çalıştırmak için aşağıdaki komutu yazabilirsiniz:
 
-**`npm install`**  (client && api)
-
-Projeyi çalıştırın:
-
-**`npm  start`**   (client && api)
+**`docker-compose up -d`**  
