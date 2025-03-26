@@ -22,7 +22,7 @@ const RegisterForm = () => {
         message.success("Kayıt başarıyla oluşturuldu");
         form.resetFields();
         localStorage.setItem("storedUser", JSON.stringify(user));
-        window.location = "/";
+        window.location = "/login";
       }
     } catch (error) {
       console.log(error);
