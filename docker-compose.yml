@@ -4,19 +4,19 @@ services:
   api:
     build: ./api
     container_name: todoapp-backend
-    image: api:latest
+    image: batuhangokalp/todoapp-api:latest
     restart: always
     ports:
       - "5000:5000"
     environment:
       MONGO_URI: "mongodb+srv://bbatuhangokalp:uNcM-i_QVTeJsW4@cluster0.xjyiz.mongodb.net/playable-factory"
-      JWT_SECRET: "my_jwt_secret_key"
+      JWT_SECRET: "rJ6mK$8xvG5!BqZ2cQeyN@d3X^TpLwM9*UoV1&HsJ4aKg7Et%fY"
     command: sh -c "sleep 5 && node server.js"
 
   client:
     build: ./client
     container_name: todoapp-frontend
-    image: client:latest
+    image: batuhangokalp/todoapp-client:latest
     restart: always
     depends_on:
       - api
