@@ -18,11 +18,9 @@ const RegisterForm = () => {
         email: values.email,
         password: values.password,
       });
-      const user = response.data;
       if (response.status === 201) {
         message.success("Kayıt başarıyla oluşturuldu");
         form.resetFields();
-        localStorage.setItem("storedUser", JSON.stringify(user));
         navigate("/login", { replace: true });
       }
     } catch (error) {
