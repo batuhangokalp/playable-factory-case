@@ -20,11 +20,11 @@ Bu proje, **React, Redux Toolkit, Express.js, MongoDB, JWT, Tailwind CSS, Ant De
 
 ### 🏠 Giriş Sayfası
 
-![Giriş Sayfası](/public/screenshots/login.png)
+![Giriş Sayfası](/client/public/screenshots/login.png)
 
 ### 🛒 Görev Sayfası
 
-![Görev Sayfası](/public/screenshots/task.png)
+![Görev Sayfası](/client/public/screenshots/task.png)
 
 ---
 
