@@ -2,8 +2,7 @@
 const createModel = (Model) => {
   return async (req, res) => {
     try {
-      const userId = req.user._id;
-
+      const userId = req.user.userId;
       const body = { ...req.body, userId };
 
       const newModel = new Model(body);
@@ -22,7 +21,7 @@ const createModel = (Model) => {
 const getModel = (Model) => {
   return async (req, res) => {
     try {
-      const userId = req.user._id;
+      const userId = req.user.userId;
       const data = await Model.find({ userId });
 
       if (data.length === 0) {
