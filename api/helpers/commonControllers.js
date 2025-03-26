@@ -2,9 +2,13 @@
 const createModel = (Model) => {
   return async (req, res) => {
     try {
-      const body = req.body;
+      const userId = req.user._id;
+
+      const body = { ...req.body, userId };
+
       const newModel = new Model(body);
       await newModel.save();
+
       res.status(201).json(newModel);
     } catch (error) {
       console.error(error);
@@ -12,18 +16,19 @@ const createModel = (Model) => {
     }
   };
 };
-
 //#endregion
 
 // #region Getting all models
 const getModel = (Model) => {
   return async (req, res) => {
     try {
-      const userId = req.user._id; 
-      const data = await Model.find({ userId }); 
+      const userId = req.user._id;
+      const data = await Model.find({ userId });
 
       if (data.length === 0) {
-        return res.status(404).json({ error: `${Model.modelName} not found for this user.` });
+        return res
+          .status(404)
+          .json({ error: `${Model.modelName} not found for this user.` });
       }
 
       res.status(200).json(data);
@@ -33,7 +38,6 @@ const getModel = (Model) => {
     }
   };
 };
-
 //#endregion
 
 // #region Updating model
