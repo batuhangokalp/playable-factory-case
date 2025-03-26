@@ -57,7 +57,7 @@ const LoginForm = () => {
             rules={[
               {
                 required: true,
-                message: "E-mail Alanı Boş Bırakılamaz",
+                message: "Required Field",
               },
             ]}
           >
