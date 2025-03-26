@@ -19,7 +19,13 @@ const createModel = (Model) => {
 const getModel = (Model) => {
   return async (req, res) => {
     try {
-      const data = await Model.find();
+      const userId = req.user._id;
+      const data = await Model.find({ userId });
+      if (data.length === 0) {
+        return res
+          .status(404)
+          .json({ error: `${Model.modelName} not found for this user.` });
+      }
       res.status(200).json(data);
     } catch (error) {
       console.error(`Getting ${Model.modelName} error:`, error);
