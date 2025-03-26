@@ -1,11 +1,12 @@
 import { Button, Form, Input, message, Spin } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +23,7 @@ const RegisterForm = () => {
         message.success("Kayıt başarıyla oluşturuldu");
         form.resetFields();
         localStorage.setItem("storedUser", JSON.stringify(user));
-        window.location = "/login";
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);
