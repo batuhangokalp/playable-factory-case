@@ -55,10 +55,10 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
+    console.log("Validation Errors:", errors.array());
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
     try {
       const { email, password } = req.body;
     
@@ -75,7 +75,6 @@ router.post(
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
         expiresIn: "1h",
       });
-      console.log("JWT Token generated:", token);
     
       res.status(200).json({ token, user });
     } catch (error) {

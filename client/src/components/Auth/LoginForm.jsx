@@ -24,7 +24,7 @@ const LoginForm = () => {
 
         localStorage.setItem("storedUser", JSON.stringify(user));
         localStorage.setItem("storedToken", token);
-        // window.location = "/";
+        window.location = "/";
       }
     } catch (error) {
       console.error(error);
