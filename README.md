@@ -7,11 +7,17 @@ Bu proje, **React, Redux Toolkit, Express.js, MongoDB, JWT, Tailwind CSS, Ant De
 ## **Özellikler**
 
 ✅ Kullanıcı Kaydı ve Girişi (JWT ve Bcrypt.js ile)
+
 ✅ Görev Ekleme, Güncelleme ve Silme
+
 ✅ Kişisel Görevlerin Yönetimi
+
 ✅ RESTful API ile Backend ve Frontend İletişimi
+
 ✅ MongoDB ile Veritabanı Yönetimi
+
 ✅ React ile Modern Kullanıcı Arayüzü
+
 ✅ JWT ile Güvenli Giriş ve Çıkış İşlemleri
 
 ---
@@ -32,6 +38,6 @@ Bu proje, **React, Redux Toolkit, Express.js, MongoDB, JWT, Tailwind CSS, Ant De
 
 Projeyi klonladıktan sonra;
 
-Dockerla çalıştırmak için aşağıdaki komutu yazabilirsiniz:
+Dockerla çalıştırmak için aşağıdaki komutu terminale yazabilirsiniz:
 
 **`docker-compose up -d`**  
