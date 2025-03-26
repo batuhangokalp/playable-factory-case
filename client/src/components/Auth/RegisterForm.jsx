@@ -47,12 +47,12 @@ const RegisterForm = () => {
           layout="vertical"
         >
           <Form.Item
-            label="Kullanıcı Adı"
+            label="Username"
             name={"username"}
             rules={[
               {
                 required: true,
-                message: "Kullanıcı Adı Alanı Boş Bırakılamaz",
+                message: "Required Field",
               },
             ]}
           >
@@ -64,32 +64,37 @@ const RegisterForm = () => {
             rules={[
               {
                 required: true,
-                message: "E-mail Alanı Boş Bırakılamaz",
+                message: "Required Field",
               },
             ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            label="Şifre"
+            label="Password"
             name={"password"}
             rules={[
               {
                 required: true,
-                message: "Şifre Alanı Boş Bırakılamaz",
+                message: "Required Field",
+              },
+              {
+                min: 6,
+                message: "At least 6 characters",
               },
             ]}
           >
             <Input.Password />
           </Form.Item>
+
           <Form.Item
-            label="Şifre Tekrar"
+            label="Comfirm Password"
             name={"passwordAgain"}
             dependencies={["password"]}
             rules={[
               {
                 required: true,
-                message: "Şifre Tekrar Alanı Boş Bırakılamaz",
+                message: "Required Field",
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
@@ -97,7 +102,7 @@ const RegisterForm = () => {
                     return Promise.resolve();
                   }
                   return Promise.reject(
-                    new Error("Şifreler aynı olmak zorunda")
+                    new Error("Passwords must be the same!")
                   );
                 },
               }),
@@ -113,15 +118,15 @@ const RegisterForm = () => {
               size="large"
               loading={loading}
             >
-              Kaydol
+              Register
             </Button>
           </Form.Item>
         </Form>
       </Spin>
       <div className="flex justify-center absolute left-0 bottom-10 w-full">
-        Bir hesabınız var mı?&nbsp;
+        Do you have an account?&nbsp;
         <Link to="/login" className="text-blue-600">
-          Şimdi giriş yap
+          Login Now!
         </Link>
       </div>
     </div>

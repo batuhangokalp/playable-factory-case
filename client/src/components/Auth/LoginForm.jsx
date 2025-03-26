@@ -64,12 +64,12 @@ const LoginForm = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Şifre"
+            label="Password"
             name={"password"}
             rules={[
               {
                 required: true,
-                message: "Şifre Alanı Boş Bırakılamaz",
+                message: "Required Field",
               },
             ]}
           >
@@ -89,15 +89,15 @@ const LoginForm = () => {
               size="large"
               loading={loading}
             >
-              Giriş Yap
+              Login
             </Button>
           </Form.Item>
         </Form>
       </Spin>
       <div className="flex justify-center left-0 bottom-10 w-full">
-        Henüz bir hesabınız yok mu?&nbsp;
+        Don't have an account yet?&nbsp;
         <Link to="/register" className="text-blue-600">
-          Şimdi kaydol
+          Sign up now!
         </Link>
       </div>
     </div>
