@@ -90,6 +90,12 @@ const Header = () => {
             <span className="header-link-span">Tasks</span>
           </Link>
         </Badge>
+        <Badge count={doneTasks?.length} className="md:hidden flex">
+          <Link to={"/done"} className="header-link">
+            <FileDoneOutlined className="text-2xl mb-2" />
+            <span className="header-link-span">Done</span>
+          </Link>
+        </Badge>
       </header>
     </div>
   );

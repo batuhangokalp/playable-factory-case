@@ -10,27 +10,8 @@ html {
   padding: 0;
   max-width: 100%;
   font-family: "Electrolize", serif;
-  overflow: hidden;
 }
 
-.add-to-cart-button {
-  @apply bg-cyan-600 text-white py-2 w-full transition-all
-}
-.add-to-cart-button:hover {
-  @apply bg-blue-700;
-}
-
-.category-button {
-  @apply bg-cyan-700 px-6 py-10 text-white hover:cursor-pointer transition-all text-center;
-}
-
-.category-button:hover {
-  @apply bg-blue-700;
-}
-
-.category-button.selected {
-  @apply bg-blue-700;
-}
 
 .header-link {
   @apply flex flex-col items-center hover:text-[#40a9ff] transition-all;
@@ -45,17 +26,4 @@ html {
 }
 .header-link-span {
   @apply text-[10px] md:text-xs;
-}
-
-@media (min-width: 768px) {
-  .categories::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  body,
-  html {
-    overflow: auto;
-  }
 }

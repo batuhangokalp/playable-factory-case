@@ -25,7 +25,7 @@ const ToDoList = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-5 bg-white rounded-xl shadow-md">
+    <div className="max-w-2xl mx-auto mt-10 p-5 bg-white rounded-xl shadow-md">
       <h2 className="text-2xl font-bold mb-4">To-Do List</h2>
       <div className="flex gap-2 mb-4">
         <Input
@@ -41,24 +41,32 @@ const ToDoList = () => {
           Add
         </Button>
       </div>
-      <List
-        bordered
-        dataSource={taskItems}
-        renderItem={(item) => (
-          <List.Item
-            actions={[
-              <Button
-                type="text"
-                danger
-                icon={<DeleteOutlined />}
-                onClick={() => dispatch(deleteTaskAsync(item._id))}
-              />,
-            ]}
-          >
-            <Typography.Text>{item.task}</Typography.Text>
-          </List.Item>
-        )}
-      />
+      <div
+        className="task-list-container"
+        style={{
+          maxHeight: "60vh",
+          overflowY: "auto",
+        }}
+      >
+        <List
+          bordered
+          dataSource={taskItems}
+          renderItem={(item) => (
+            <List.Item
+              actions={[
+                <Button
+                  type="text"
+                  danger
+                  icon={<DeleteOutlined />}
+                  onClick={() => dispatch(deleteTaskAsync(item._id))}
+                />,
+              ]}
+            >
+              <Typography.Text>{item.task}</Typography.Text>
+            </List.Item>
+          )}
+        />
+      </div>
     </div>
   );
 };

@@ -47,7 +47,7 @@ const Done = () => {
           pagination={false}
           scroll={{
             x: 1200,
-            y: 300,
+            y: 500,
           }}
         />
         <div className="flex justify-end mt-4">
