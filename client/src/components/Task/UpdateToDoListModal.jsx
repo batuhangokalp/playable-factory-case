@@ -10,7 +10,7 @@ const UpdateToDoListModal = ({
   return (
     <Modal
       title="Update Task"
-      visible={isModalVisible}
+      open={isModalVisible}
       onCancel={() => setIsModalVisible(false)}
       onOk={handleSubmit}
     >
@@ -23,7 +23,7 @@ const UpdateToDoListModal = ({
           <Input />
         </Form.Item>
 
-        <Form.Item label="Image" name="image">
+        <Form.Item label="Image (Link)" name="image">
           <Input />
         </Form.Item>
       </Form>

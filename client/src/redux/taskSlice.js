@@ -14,12 +14,25 @@ const doneTasksFromLocalStorage = () => {
 
 export const fetchTaskAsync = createAsyncThunk("task/fetchTask", async () => {
   const token = getToken();
-  const response = await axios.get(`${API_URL}/api/task`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
+  try {
+    const response = await axios.get(`${API_URL}/api/task`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("storedToken");
+
+      if (!window.location.pathname.includes("/login")) {
+        window.location.href = "/login";
+      }
+    } else {
+      console.error("Error during axios.get:", error);
+      throw error;
+    }
+  }
 });
 
 export const createTaskAsync = createAsyncThunk(
@@ -34,8 +47,16 @@ export const createTaskAsync = createAsyncThunk(
       });
       return res.data;
     } catch (error) {
-      console.error("Error during axios.post:", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem("storedToken");
+
+        if (!window.location.pathname.includes("/login")) {
+          window.location.href = "/login";
+        }
+      } else {
+        console.error("Error during axios.post:", error);
+        throw error;
+      }
     }
   }
 );
@@ -52,8 +73,16 @@ export const deleteTaskAsync = createAsyncThunk(
       });
       return taskId;
     } catch (error) {
-      console.error("Error during axios.delete:", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem("storedToken");
+
+        if (!window.location.pathname.includes("/login")) {
+          window.location.href = "/login";
+        }
+      } else {
+        console.error("Error during axios.delete:", error);
+        throw error;
+      }
     }
   }
 );
@@ -70,8 +99,16 @@ export const updateTaskAsync = createAsyncThunk(
       });
       return res.data;
     } catch (error) {
-      console.error("Error during axios.post:", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem("storedToken");
+
+        if (!window.location.pathname.includes("/login")) {
+          window.location.href = "/login";
+        }
+      } else {
+        console.error("Error during axios.put:", error);
+        throw error;
+      }
     }
   }
 );
@@ -102,7 +139,7 @@ export const taskSlice = createSlice({
     },
     clearDoneTasks: (state) => {
       state.doneTasks = [];
-      localStorage.removeItem("doneTasks");
+      localStorage.removeItem("storedDoneTasks");
     },
   },
   extraReducers: (builder) => {
