@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 
 // #region Register
@@ -61,27 +61,28 @@ router.post(
     }
     try {
       const { email, password } = req.body;
-    
+
       const user = await User.findOne({ email });
       if (!user) {
         return res.status(401).json({ error: "Invalid email!" });
       }
-    
+
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
         return res.status(401).json({ error: "Invalid password!" });
       }
-    
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
-      });
-    
+
+      const token = jwt.sign(
+        { userId: user._id, email: user.email, username: user.username },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+
       res.status(200).json({ token, user });
     } catch (error) {
       console.error("Login error:", error);
       res.status(500).json({ error: "Server error!" });
     }
-    
   }
 );
 // #endregion
